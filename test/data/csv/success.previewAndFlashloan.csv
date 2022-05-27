@@ -1,0 +1,8 @@
+_on.b,underlying.a,deltaPrincipal.n,cToken.a,deltaBorrowLimitPCT.n,close.b,signer.sr
+false,cDAI.underlying,10000e18,cDAI.address,0.99999e18,false,deployer
+true,cUSDC.underlying,10000e6,cUSDC.address,0.99999e18,false,deployer
+false,cDAI.underlying,1000e18,cDAI.address,0,false,deployer
+false,cDAI.underlying,0,cDAI.address,-0.1e18,false,deployer
+false,cDAI.underlying,0,cDAI.address,-0.58e18,false,deployer
+false,cDAI.underlying,0,cDAI.address,0,true,deployer
+false,cDAI.underlying,50000e18,cDAI.address,0.1e18,false	,deployer

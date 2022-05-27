@@ -1,0 +1,18 @@
+[
+    {
+        "_on.b": "true",
+        "underlying.a": "cDAI.underlying",
+        "deltaPrincipal.n": "10000e18",
+        "cToken.a": "cDAI.address",
+        "deltaBorrowLimitPCT.n": "0.99e18",
+        "close.b": "false",
+        "offset.n": "0.000001e18",
+        "_on": true,
+        "underlying": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "deltaPrincipal": "10000000000000000000000",
+        "cToken": "0x5d3a536e4d6dbd6114cc1ead35777bab948e3643",
+        "deltaBorrowLimitPCT": "990000000000000000",
+        "close": false,
+        "offset": "1000000000000"
+    }
+]

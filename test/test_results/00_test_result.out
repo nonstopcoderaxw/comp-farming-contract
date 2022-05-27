@@ -1,0 +1,78 @@
+2022-01-23T04:39:24.174Z hardhat:core:config Loading Hardhat config from /Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/hardhat.config.js
+2022-01-23T04:39:24.929Z hardhat:core:global-dir Looking up Client Id at /Users/main/Library/Application Support/hardhat-nodejs/analytics.json
+2022-01-23T04:39:24.930Z hardhat:core:global-dir Client Id found: fd21a211-2e0e-43d5-9370-01463ae4a6ce
+2022-01-23T04:39:24.930Z hardhat:core:hre Creating HardhatRuntimeEnvironment
+2022-01-23T04:39:25.094Z hardhat:core:hre Running task test
+2022-01-23T04:39:25.095Z hardhat:core:hre Running task compile
+2022-01-23T04:39:25.095Z hardhat:core:hre Running task compile:get-compilation-tasks
+2022-01-23T04:39:25.095Z hardhat:core:hre Running task compile:solidity
+2022-01-23T04:39:25.095Z hardhat:core:hre Running task compile:solidity:get-source-paths
+2022-01-23T04:39:25.116Z hardhat:core:hre Running task compile:solidity:get-source-names
+2022-01-23T04:39:25.121Z hardhat:core:hre Running task compile:solidity:get-dependency-graph
+2022-01-23T04:39:25.123Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.124Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.124Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.124Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.127Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.128Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.129Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.134Z hardhat:core:hre Running task compile:solidity:read-file
+2022-01-23T04:39:25.142Z hardhat:core:hre Running task compile:solidity:get-compilation-jobs
+2022-01-23T04:39:25.142Z hardhat:core:tasks:compile The dependency graph was divided in '1' connected components
+2022-01-23T04:39:25.143Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2022-01-23T04:39:25.143Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2022-01-23T04:39:25.156Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/CompFarmingContract.sol' will be compiled with version '0.8.9'
+2022-01-23T04:39:25.156Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/dydx/DydxLibAndInterface.sol' added as dependency of '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/CompFarmingContract.sol'
+2022-01-23T04:39:25.156Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/compound/CompoundLibAndInterface.sol' added as dependency of '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/CompFarmingContract.sol'
+2022-01-23T04:39:25.156Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/openzeppelin/IERC20.sol' added as dependency of '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/CompFarmingContract.sol'
+2022-01-23T04:39:25.156Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/node_modules/hardhat/console.sol' added as dependency of '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/CompFarmingContract.sol'
+2022-01-23T04:39:25.156Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2022-01-23T04:39:25.156Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2022-01-23T04:39:25.157Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/node_modules/hardhat/console.sol' will be compiled with version '0.8.9'
+2022-01-23T04:39:25.157Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2022-01-23T04:39:25.157Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2022-01-23T04:39:25.157Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/openzeppelin/IERC20.sol' will be compiled with version '0.8.9'
+2022-01-23T04:39:25.157Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2022-01-23T04:39:25.157Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2022-01-23T04:39:25.157Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/compound/CompoundLibAndInterface.sol' will be compiled with version '0.8.9'
+2022-01-23T04:39:25.157Z hardhat:core:hre Running task compile:solidity:get-compilation-job-for-file
+2022-01-23T04:39:25.157Z hardhat:core:hre Running compile:solidity:get-compilation-job-for-file's super
+2022-01-23T04:39:25.157Z hardhat:core:compilation-job File '/Users/main/Documents/mac_backup/coding/gitProjects/comp-farming-contract/contracts/dydx/DydxLibAndInterface.sol' will be compiled with version '0.8.9'
+2022-01-23T04:39:25.158Z hardhat:core:hre Running task compile:solidity:handle-compilation-jobs-failures
+2022-01-23T04:39:25.158Z hardhat:core:hre Running task compile:solidity:filter-compilation-jobs
+2022-01-23T04:39:25.160Z hardhat:core:tasks:compile '1' jobs were filtered out
+2022-01-23T04:39:25.160Z hardhat:core:hre Running task compile:solidity:merge-compilation-jobs
+2022-01-23T04:39:25.160Z hardhat:core:hre Running task compile:solidity:compile-jobs
+2022-01-23T04:39:25.160Z hardhat:core:tasks:compile No compilation jobs to compile
+2022-01-23T04:39:25.160Z hardhat:core:hre Running task compile:solidity:log:nothing-to-compile
+2022-01-23T04:39:25.162Z hardhat:core:hre Running task compile:solidity:log:compilation-result
+2022-01-23T04:39:25.162Z hardhat:core:hre Running task compile:remove-obsolete-artifacts
+2022-01-23T04:39:25.175Z hardhat:core:hre Running task test:get-test-files
+2022-01-23T04:39:25.177Z hardhat:core:hre Running task test:setup-test-environment
+2022-01-23T04:39:25.177Z hardhat:core:hre Running task test:show-fork-recommendations
+2022-01-23T04:39:25.177Z hardhat:core:hre Running task test:run-mocha-tests
+2022-01-23T04:39:25.177Z hardhat:core:hre Running test:run-mocha-tests's super
+
+
+  dydx flashloan
+2022-01-23T04:39:25.581Z hardhat:core:hre Creating provider for network localhost
+       > Info: contract deployed at  0xBEc49fA140aCaA83533fB00A2BB19bDdd0290f25
+       > beforeEach done!
+       > ==== test case row 0 ====
+       > Info: approved! 0x36368b4ec317e4639bfabecd24adf5e41075adb196d38a2d8e4c591ab9a22f4c
+    1) #redeem
+
+
+  0 passing (561ms)
+  1 failing
+
+  1) dydx flashloan
+       #redeem:
+     ProviderError: Error: VM Exception while processing transaction: reverted with reason string 'Dai/insufficient-balance'
+      at HttpProvider.request (node_modules/hardhat/src/internal/core/providers/http.ts:49:19)
+      at GanacheGasMultiplierProvider.request (node_modules/hardhat/src/internal/core/providers/gas-providers.ts:312:34)
+      at processTicksAndRejections (node:internal/process/task_queues:96:5)
+
+
+
+2022-01-23T04:39:25.813Z hardhat:core:cli Killing Hardhat after successfully running task test

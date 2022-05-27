@@ -1,0 +1,2 @@
+_on.b,underlying.a,deltaPrincipal.n,cToken.a,deltaBorrowLimitPCT.n,close.b,offset.n
+true,cDAI.underlying,10000e18,cDAI.address,0.99e18,false,0.000001e18
