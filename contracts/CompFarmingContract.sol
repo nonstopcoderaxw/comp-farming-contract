@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+
+pragma solidity ^0.8.7;
 
 import "./DydxLib.sol";
 import "./CompoundLib.sol";
@@ -7,8 +8,15 @@ import "./CompFarmingMath.sol";
 import "./AccountProfileLib.sol";
 import "./openzeppelin/IERC20.sol";
 import "./myCompYield/MyCompYieldLibAndInterface.sol";
-import "./hardhat/console.sol";
 
+
+/// @title a contract to farm Comp token
+/// @author Alex W.(axw.eth)
+/// @notice a contract to implement a Comp token farming strategy in the following medium posts
+///         "https://medium.com/alex_28112/compound-finance-yield-farming-math-analysis-part-1-2158e43ce017"
+///         "https://medium.com/alex_28112/compound-finance-yield-farming-math-analysis-part-2-543c86e9c16e"
+/// @dev    a user proxy contract is recommended to delegate calls to this contract
+///         dydx flashloan is implemented in this contract
 contract CompFarmingContract is ICallee {
 
     uint256 constant private one = 1e18;
@@ -26,7 +34,6 @@ contract CompFarmingContract is ICallee {
     error positionAlreadyClosed();
 
     struct PreviewAccountProfileReturn {
-        //MyCompYield.AccountProfile toBe;
         FlashLoanParams flashLoanParams;
     }
 
@@ -48,6 +55,21 @@ contract CompFarmingContract is ICallee {
         bytes actionData;
     }
 
+
+    /// @notice the entry to start farming by filling out flashloan details. Farming will start after this call.
+    /// @dev Borrow via dydx flashloan to supply to Compound, borrow from Compound to achieve the targeted percentage of borrow rate
+    /// @param params FlashLoanParams.marketId The dydx flashloan market id
+    ///               FlashLoanParams.loanAmount How to loan from dydx
+    ///               FlashLoanParams.loanFees How much fees to pay dydx for the loan
+    ///               FlashLoanParams.actionData The encoded Struct Action Data.
+    ///               ActionData.sender The EOA sender to borrow and farm. This is not the proxy address if user proxy is used
+    ///               ActionData.cToken The cToken address used as collateral.
+    ///               ActionData.underlying The underlying address of the cToken
+    ///               ActionData.loanAmount How much underlying to borrow from Dydx
+    ///               ActionData.loanFees How much fees to pay dydx for the loan
+    ///               ActionData.deltaPrincipal How much principal to increase or reduce
+    ///               ActionData.deltaBorrowLimitPCT How much borrow limit percentage to increase or reduce
+    ///               ActionData.close Set true to close the farming position. Funds will be returned to ActionData.sender
     function flashLoan(
         FlashLoanParams memory params
     ) external {
@@ -77,6 +99,10 @@ contract CompFarmingContract is ICallee {
         }
     }
 
+    /// @notice users will not use this function directly
+    /// @dev the flashloan callback function
+    /// @param sender The sender started the flashloan. This will be the user proxy address
+    /// @param actionData The ActionData Struct data passed by "flashLoan" function call.
     function callFunction(
         address sender,
         Account.Info memory,
@@ -124,6 +150,16 @@ contract CompFarmingContract is ICallee {
         IERC20(data.underlying).approve(soloMargin, totalRepayAmt);
     }
 
+    /// @notice This function generates the "flashloan" function call's parameters
+    /// @dev A pre-compute function to return all the parameters used for the "flashloan" function
+    /// @param compFarmingMath The math function to optimize Comp return
+    /// @param deltaPrincipal The delta principal used for farming.
+    ///                       Positive means increasing principal. Negative means reducing principal.
+    /// @param cToken The cToken used as collateral
+    /// @param deltaBorrowLimitPCT The delta of the borrow limit percentage.
+    ///                            Positive means increasing the percentage. Negative means reducing percentage.
+    /// @param closePosition The flag to indicate closing the farming position
+    /// @return r The returned call data details for the "flashLoan" function
     function previewAccountProfile(
         ICompFarmingMath compFarmingMath,
         address underlying,
@@ -205,7 +241,8 @@ contract CompFarmingContract is ICallee {
         }));
     }
 
-    // @inheritdoc
+    /// @notice This is to take profit from farmed token
+    /// @dev claim farmed Comp token and transfer to EOA
     function harvest() external {
         // claim
         Comptroller(CompoundLib.comptroller).claimComp(address(this));

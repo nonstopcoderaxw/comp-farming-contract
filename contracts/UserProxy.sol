@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-import "./hardhat/console.sol";
+pragma solidity ^0.8.7;
 
 contract UserProxy {
     address public owner;
