@@ -2,14 +2,17 @@
 pragma solidity ^0.8.7;
 
 contract UserProxy {
-    address public owner;
-    address public target;
+    address private owner;
+    address private target;
+    address private fallbackUser;
 
     error onlyOwnerAllowed(address);
+    error fallbackDenied(address);
 
-    constructor(address _target, address _owner) {
+    constructor(address _target, address _owner, address _fallbackUser) {
         owner = _owner;
         target = _target;
+        fallbackUser = _fallbackUser;
     }
 
     modifier onlyOwner {
@@ -42,6 +45,8 @@ contract UserProxy {
     }
 
     fallback() external {
+        if (msg.sender != owner && msg.sender != fallbackUser) revert fallbackDenied(msg.sender);
+
         (bool success, ) = target.delegatecall(msg.data);
 
         assembly {

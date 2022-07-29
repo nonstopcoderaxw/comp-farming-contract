@@ -3,7 +3,6 @@ pragma solidity ^0.8.6;
 import "./ICompFarmingMath.sol";
 import "./AccountProfileLib.sol";
 import "./CompoundLib.sol";
-import "./hardhat/console.sol";
 import "./math/FullMath.sol";
 
 contract CompFarmingMath is ICompFarmingMath {

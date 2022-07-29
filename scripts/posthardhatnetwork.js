@@ -7,6 +7,7 @@ const addresses = {
 
 const config = {
     testcoin: {
+        on: true,
         signer: 19,
         recipients: [
             "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
@@ -39,8 +40,12 @@ async function main() {
 
 async function post_process() {
     console.log("       > post process started!");
-    await receiveTestCoins();
-    console.log("       > test coins sent!");
+    if(config.testcoin.on) {
+      await receiveTestCoins();
+      console.log("       > test coins sent!");
+    } else {
+      console.log("       > test coins disabled!");
+    }
     const snapshotId = await takeInitialSnapshot(ethers.provider.connection.url);
     console.log(`       > snapshot taken ${snapshotId["result"]}`);
     await clearDeployedContracts();

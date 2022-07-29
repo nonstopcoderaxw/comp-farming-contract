@@ -6,13 +6,15 @@ import "./UserProxy.sol";
 contract UserProxyFactory {
     address public owner;
     address public target;
+    address public fallbackUser;
     mapping(address => address) public proxy_to_user;
 
     error onlyOwnerAllowed(address);
 
-    constructor(address _target) {
+    constructor(address _target, address _fallbackUser) {
         owner = msg.sender;
         target = _target;
+        fallbackUser = _fallbackUser;
     }
 
     modifier onlyOwner {
@@ -22,7 +24,7 @@ contract UserProxyFactory {
 
     function createUserProxy() external {
         if (proxy_to_user[msg.sender] == address(0)) {
-          address newProxy = address(new UserProxy{salt: getSalt(msg.sender)}(target, msg.sender));
+          address newProxy = address(new UserProxy{salt: getSalt(msg.sender)}(target, msg.sender, fallbackUser));
           proxy_to_user[msg.sender] = newProxy;
         }
     }

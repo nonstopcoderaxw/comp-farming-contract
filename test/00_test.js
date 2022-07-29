@@ -1,3 +1,5 @@
+return;
+
 //note: forked mainnet required to run the script
 const {
   revertToInitalSnapshot
@@ -15,10 +17,9 @@ describe("comp-farming-contract testcase set 1", function () {
         console.log("       > beforeEach done!");
     })
     /*****/
-    it("#redeploy", async function(){})
+    it.skip("#redeploy", async function(){})
     /*****/
-    it.only("#previewAndFlashloan; harvest", async function(){
+    it("#previewAndFlashloan; harvest, replay attack", async function(){
         await test.previewAndFlashloanSuccess("success.previewAndFlashloan");
     })
-
 })

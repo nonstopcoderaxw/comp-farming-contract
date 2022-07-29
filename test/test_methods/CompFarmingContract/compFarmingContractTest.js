@@ -64,6 +64,7 @@ class CompFarmingContractTest {
       )
       console.log(`       > previewResult: ${JSON.stringify(previewResult)}`);
       console.log(`        > loan amount: ${previewResult.flashLoanParams.loanAmount}`);
+      
       // approve
       if (deltaPrincipal > 0) {
           const approveTx = await ERC20.approve(
@@ -110,15 +111,17 @@ class CompFarmingContractTest {
       //accured interest
       const blockNumber1 = await ethers.provider.getBlockNumber();
       console.log(`       > blockNumberDiff: ${blockNumber1 - blockNumber0}`);
+      console.log("       > principal: ", assertProfile_xBlocksAfter.principal_.toString());
       console.log("       > supply.amount: ", assertProfile_xBlocksAfter.supply.amount_.toString());
       console.log("       > borrow.amount: ", assertProfile_xBlocksAfter.borrow.amount.toString());
+      console.log("       > EOA erc20 balance: ", await ERC20.balanceOf(underlying, signer.address, signer));
       console.log("       > assertProfile_xBlocksAfter.borrowLimitPCT_: ", assertProfile_xBlocksAfter.borrowLimitPCT_);
 
       //test harvest
-      await UserProxy.contractProxyForImpl().harvest();
-      // check comp balance of the sender
-      const comp = this.test_env.constants.comp_constant.Comp.address;
-      console.log(`       > comp balance: ${await ERC20.balanceOf(comp, signer.address, signer)}`);
+      // await UserProxy.contractProxyForImpl().harvest();
+      // // check comp balance of the sender
+      // const comp = this.test_env.constants.comp_constant.Comp.address;
+      // console.log(`       > comp balance: ${await ERC20.balanceOf(comp, signer.address, signer)}`);
     }
   }
 

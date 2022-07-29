@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 import "./CompoundLib.sol";
 import "./math/FullMath.sol";
-import "./hardhat/console.sol";
 
 library AccountProfileLib {
     using CompoundLib for address;

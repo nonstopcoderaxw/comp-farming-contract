@@ -36,7 +36,8 @@ class CompFarmingContractTestEnv {
       UserProxy: UserProxy
     };
     this.constants = {
-      comp_constant: {}
+      comp_constant: {},
+      dydx_constant: {}
     };
     this.signers = {};
     this.node = {
@@ -50,6 +51,8 @@ class CompFarmingContractTestEnv {
     this.signers = await this.getSigners();
     await this.deployedContractsHelpers.Compound.initialize();
     this.constants.comp_constant = await this.deployedContractsHelpers.Compound.comp_constant();
+    await Dydx.initialize(this.signers.deployer);
+    this.constants.dydx_constant = Dydx.dydx_constant();
     await this.migrate_contracts();
     this.deployedContracts.compFarmingMath = await load_contract("CompFarmingMath", this.signers.deployer);
     await this.deployedContractsHelpers.CompFarmingMath.initialize(this.deployedContracts.compFarmingMath);
@@ -71,12 +74,12 @@ class CompFarmingContractTestEnv {
   async migrate_contracts() {
     await this.migrate_CompFarmingMath();
     const deployed_compFarmingContract = await this.migrate_CompFarmingContract();
-    await this.migrate_UserProxyFactory(deployed_compFarmingContract);
+    await this.migrate_UserProxyFactory(deployed_compFarmingContract, Dydx.dydx_constant().SoloMargin);
   }
 
-  async migrate_UserProxyFactory(compFarmingContract) {
+  async migrate_UserProxyFactory(compFarmingContract, fallbackUser) {
     const UserProxyFactory = await ethers.getContractFactory("UserProxyFactory");
-    const userProxyFactory = await UserProxyFactory.deploy(compFarmingContract);
+    const userProxyFactory = await UserProxyFactory.deploy(compFarmingContract, fallbackUser);
     await Deployed_Contracts.save_deployed_contracts(
         "UserProxyFactory",
         userProxyFactory.address,

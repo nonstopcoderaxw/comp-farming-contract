@@ -9,7 +9,6 @@ import "./AccountProfileLib.sol";
 import "./openzeppelin/IERC20.sol";
 import "./myCompYield/MyCompYieldLibAndInterface.sol";
 
-
 /// @title a contract to farm Comp token
 /// @author Alex W.(axw.eth)
 /// @notice a contract to implement a Comp token farming strategy in the following medium posts
@@ -108,6 +107,7 @@ contract CompFarmingContract is ICallee {
         Account.Info memory,
         bytes memory actionData
     ) external override {
+
         ActionData memory data = abi.decode(actionData, (ActionData));
 
         if (data.deltaPrincipal > 0){
