@@ -57,6 +57,67 @@ async function revertToInitalSnapshot(provider_url) {
     await takeSnapshot("initial");
 }
 
+async function impersonate(acc) {
+  await ethers.provider.send('hardhat_impersonateAccount', [acc]);
+  const iSigner = await ethers.provider.getSigner(acc);
+  return iSigner;
+}
+
+async function replicateBlock(blockNumber, offset, skipFailedTx, targetTx, skipTxIndexList) {
+  //turn mining off
+  await network.provider.send("evm_setAutomine", [ false ]);
+
+  const mainnet = await new ethers.providers.JsonRpcProvider(process.env.achieveNode);
+  const mTxs = (await mainnet.getBlockWithTransactions(blockNumber)).transactions;
+  console.log("mTxs.length:", mTxs.length);
+  console.log("targetTx index: ", (await mainnet.getTransactionReceipt(targetTx)).transactionIndex);
+
+  for(var i = offset; i < mTxs.length; i++) {
+    const tx = mTxs[i];
+    console.log("index: ", tx.transactionIndex);
+    console.log("tx: ", tx.hash);
+
+    const status = (await mainnet.getTransactionReceipt(tx.hash)).status;
+    console.log("status: ", status);
+    if(skipTxIndexList.includes(tx.transactionIndex) || skipFailedTx && status == 0 && tx.hash != targetTx) continue;
+
+    if(tx.data == "0x") continue;
+    const rTx = await replicateTx(tx.hash);
+    console.log("block number: ", await ethers.provider.getBlockNumber());
+    console.log("=======Success Above!======");
+    if(tx.hash == targetTx) break;
+  }
+
+  //mine 1 block
+  await mineBlocks(1);
+}
+
+async function replicateTx(txHash) {
+
+  // get tx details from mainnet
+  const mainnet = await new ethers.providers.JsonRpcProvider(process.env.achieveNode);
+  const mtx = await mainnet.getTransaction(txHash);
+  console.log("mainnet tx hash", mtx.hash);
+  // impersonate
+  const iSigner = await impersonate(mtx.from);
+  // send
+  const tx = await iSigner.sendTransaction({
+    to: mtx.to,
+    data: mtx.data,
+    nonce: mtx.nonce,
+    value: mtx.value,
+    accessList: mtx.accessList,
+    type: mtx.type,
+    chainId: mtx.chainId,
+    gasLimit: mtx.gasLimit,
+    //maxFeePerGas: mtx.maxFeePerGas,
+    //maxPriorityFeePerGas: mtx.maxPriorityFeePerGas
+    //gasPrice: mtx.gasPrice
+  });
+  console.log("replayed tx hash", tx.hash);
+  return tx;
+}
+
 async function init_web3(provider_url) {
     return new Web3(new Web3.providers.HttpProvider(provider_url));
 }
@@ -78,5 +139,8 @@ module.exports = {
     takeSnapshot,
     revertToSnapshot,
     revertToInitalSnapshot,
-    mineBlocks
+    mineBlocks,
+    impersonate,
+    replicateBlock,
+    replicateTx
 }
